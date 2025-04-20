@@ -1,0 +1,72 @@
+<html>
+	<head>
+		<style>
+			header, footer, #main, #nav {
+				box-sizing: border-box;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			header {
+				height: 10%;
+			}
+			
+			footer, #nav {
+				height: 5%;
+			}
+			
+			#main {
+				height: 80%;
+			}
+			
+			header {
+				border: 5px double black;
+				font-size: 30px;
+				background-color: green;
+			}
+			
+			footer, #main, #nav{
+				border: 1px solid black;
+				font-size: 20px;
+				background-color: lightgray;
+			}
+			
+			.btn {
+				text-decoration: none;
+				border: 1px solid;
+				color: black;
+				margin-right: 5px;
+				padding: 4px 5px;
+			}
+			
+			#userbtn {
+				float: right;
+			}
+			
+			h2 {
+				text-align: center;
+			}
+				
+			
+			.btn:hover {background-color: darkgrey}
+		</style>
+		<title>Uh Oh</title>
+	</head>
+	
+	<body>
+		<header>Uh Oh</header>
+		<div id = "nav">
+			<a class = "btn" id = "login" href = "finalHome.php">Home</a>
+			<a class = "btn" id = "upcoming" href = "finalUpcoming.php">Upcoming Releases</a>
+			<a class = "btn" id = "reviews" href = "finalReviews.php">Reviews</a>
+			<a class = "btn" id = "about" href = "finalAbout.php">About</a>
+			<a class = "btn" id = "user" href = "finalUser.php">User</a>
+			
+		</div>
+		<div id="main">
+			<h2>Incorrect username or password. Click&nbsp;<a href = "finalLogin.html">here</a>&nbsp;to try again.</h2>
+		</div>
+		<footer>Thank you for visiting!</footer>
+	</body>
+</html>

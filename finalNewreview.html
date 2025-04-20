@@ -1,0 +1,157 @@
+<html>
+	<head>
+		<style>
+			#main {
+				height: 80%;
+				border: 1px solid black;
+				background-color: lightgray;
+			}
+			
+			header, footer, #nav, #main, #asideleft, #asideright, #maincenter {
+				box-sizing: border-box;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			#asideleft, #asideright, #maincenter {
+				height: 100%;
+				font-size: 1.5em;
+			}
+			
+			#nav, footer {
+				height 10%;
+				font-size: 1.5em;
+			}
+			
+			header {
+				height: 10%;
+				border: 5px double black;
+				font-size: 30px;
+				background-color: green;
+			}
+			
+			#asideleft {
+				width: 10%;
+				float: left;
+				border-right: 1px solid black;
+			}
+			
+			#asideright {
+				width: 10%;
+				float: right;
+				border-left: 1px solid black;
+			}
+			
+			#maincenter {
+				width: 80%;
+				float: left;
+				flex-direction: column;
+			}
+			
+			#nav, footer {
+				background-color: lightgray;
+				border: 1px solid black;
+			}
+			
+			.rdobtn {
+				position: relative;
+				right: 6px;
+				bottom: 3px;
+			}
+			
+			#submit {
+				margin-top: 5px;
+			}
+			
+			#newreviewlabel {
+				position: relative;
+				bottom: 20px;
+				font-size: 40px;
+			}
+			
+			.btn {
+				text-decoration: none;
+				border: 1px solid;
+				color: black;
+				margin-right: 5px;
+				padding: 4px 5px;
+			}
+			
+			.btn:hover {background-color: darkgrey}			
+			
+		</style>
+		<title>Review submission page.</title>
+	</head>
+	
+	<body>
+		<header>Submit a Review</header>
+		<div id="nav">
+			<a class = "btn" id = "home" href = "finalHome.html">Homepage</a>
+			<a class = "btn" id = "upcoming" href = "finalUpcoming.html">Upcoming Releases</a>
+			<a class = "btn" id = "reviews" href = "finalReviews.html">Reviews</a>
+			<a class = "btn" id = "about" href = "finalAbout.html">About</a>
+		</div>
+		<div id="main">
+			<div id="asideleft">Left aside.</div>
+			<div id="maincenter">
+				<label for = "newreview" id = "newreviewlabel">Submit your review below.</label>
+				<form id = "newreview">
+					<div id = "gametitle">
+					<label for = "title">Game Title:</label>
+					<input type = "text" id = "title" name = "title">
+					</div><br>
+					<label id = "gameplay">Gameplay:
+						<div id = "gameplayrating">
+						<label for = "gameplay1">1</label>
+						<input type = "radio" class = "rdobtn" name = "gameplay1" value = "1">
+						<label for = "gameplay2">2</label>
+						<input type = "radio" class = "rdobtn" name = "gameplay2" value = "2">
+						<label for = "gameplay3">3</label>
+						<input type = "radio" class = "rdobtn" name = "gameplay3" value = "3">
+						<label for = "gameplay4">4</label>
+						<input type = "radio" class = "rdobtn" name = "gameplay4" value = "4">
+						<label for = "gameplay5">5</label>
+						<input type = "radio" class = "rdobtn" name = "gameplay5" value = "5">
+						</div>
+					</label><br>
+					<label id = "graphics">Graphics:
+						<div id = "graphicsrating">
+						<label for = "graphics1">1</label>
+						<input type = "radio" class = "rdobtn" name = "graphics1" value = "1">
+						<label for = "graphics2">2</label>
+						<input type = "radio" class = "rdobtn" name = "graphics2" value = "2">
+						<label for = "graphics3">3</label>
+						<input type = "radio" class = "rdobtn" name = "graphics3" value = "3">
+						<label for = "graphics4">4</label>
+						<input type = "radio" class = "rdobtn" name = "graphics4" value = "4">
+						<label for = "graphics5">5</label>
+						<input type = "radio" class = "rdobtn" name = "graphics5" value = "5">
+						</div>
+					</label><br>
+					<label id = "worldbuilding">Worldbuilding:
+						<div id = "worldbuildingrating">
+						<label for = "worldbuilding1">1</label>
+						<input type = "radio" class = "rdobtn" name = "worldbuilding1" value = "1">
+						<label for = "worldbuilding2">2</label>
+						<input type = "radio" class = "rdobtn" name = "worldbuilding2" value = "2">
+						<label for = "worldbuilding3">3</label>
+						<input type = "radio" class = "rdobtn" name = "worldbuilding3" value = "3">
+						<label for = "worldubilding4">4</label>
+						<input type = "radio" class = "rdobtn" name = "worldbuilding4" value = "4">
+						<label for = "worldbuilding5">5</label>
+						<input type = "radio" class = "rdobtn" name = "worldbuilding5" value = "5">
+						</div>
+					</label><br>
+					<label for = "comments">Write your review:</label>
+					<div id = "comments">
+					<textarea rows = "4" cols = "40" name = "comments"></textarea>
+					</div>
+					<input type = "submit" id = "submit" value = "Submit">
+				</form>
+			</div>
+			<div id="asideright">Right aside.</div>
+		</div>
+		<footer>Thank you for your visit!</footer>
+	</body>
+</html>

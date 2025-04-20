@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<style>
+			#main {
+				height: 80%;
+				border: 1px solid black;
+				background-color: lightgray;
+			}
+			
+			header, footer, #nav, #main, #asideleft, #asideright, #maincenter {
+				box-sizing: border-box;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			#asideleft, #asideright, #maincenter {
+				height: 100%;
+				font-size: 1.5em;
+			}
+			
+			#nav, footer {
+				height 10%;
+				font-size: 1.5em;
+			}
+			
+			header {
+				height: 10%;
+				border: 5px double black;
+				font-size: 30px;
+				background-color: green;
+			}
+			
+			#asideleft {
+				width: 10%;
+				float: left;
+				border-right: 1px solid black;
+			}
+			
+			#asideright {
+				width: 10%;
+				float: right;
+				border-left: 1px solid black;
+			}
+			
+			#maincenter {
+				float: left;
+				flex-direction: column;
+			}
+			
+			#nav, footer {
+				background-color: lightgray;
+				border: 1px solid black;
+			}
+			
+			#submit {
+				margin-top: 5px;
+			}
+			
+			.btn {
+				text-decoration: none;
+				border: 1px solid;
+				color: black;
+				margin-right: 5px;
+				padding: 4px 5px;
+			}
+			
+			#emailErr, #usernameErr, #passwordErr {
+				color: red;
+				font-size: 0.8em;
+				visibility: hidden;
+			}
+			
+			.btn:hover {background-color: darkgrey}			
+			
+		</style>
+		<title>Sign-up page.</title>
+	</head>
+	<script src = "finalCheckUser.js" defer></script>
+	<body>
+		<header>Sign-up Page</header>
+		<div id="nav">
+			<a class = "btn" id = "home" href = "finalHome.php">Homepage</a>
+			<a class = "btn" id = "upcoming" href = "finalUpcoming.php">Upcoming Releases</a>
+			<a class = "btn" id = "reviews" href = "finalReviews.php">Reviews</a>
+			<a class = "btn" id = "chart" href = "finalPubSearch.php">Game Data</a>
+			<a class = "btn" id = "about" href = "finalAbout.php">About</a>
+		</div>
+		<div id="main">
+			<div id="maincenter">
+				<form id = "newUser" action = "finalSignup.php" method = "post">
+					<label for = "email">E-mail:</label>
+					<input type = "text" id = "email" name = "email">
+					<span id = "emailErr">*You must enter an E-mail address*</span><br>					
+					<label for = "username">Username:</label>
+					<input type = "text" id = "username" name = "username">
+					<span id = "usernameErr">*You must enter a username*</span><br>
+					<label for = "password">Password:</label>
+					<input type = "password" id = "password" name = "password">
+					<span id = "passwordErr">*You must enter a password*</span><br>
+					<input type = "submit" id = "submit" value = "Submit">
+				</form>
+			</div>
+		</div>
+		<footer>Thank you for your visit!</footer>
+	</body>
+</html>

@@ -1,0 +1,175 @@
+<?php
+session_start();
+$host = "localhost";
+$user = "alyon4";
+$pass = "alyon4";
+$dbname = "alyon4";
+
+//Create connection
+$conn = new mysqli($host,$user,$pass,$dbname);
+//Check connection
+if($conn->connect_error)
+{
+	echo "Could not connect to server\n";
+	die("Connection failed: ". $conn->connect_error);
+}
+
+$msg = '';
+if(isset($_POST['submit'])){
+	$time = time()-30;
+	$ip_address = getIpAddr();
+	
+// Getting total count of hits on the basis of IP
+$query="select count(*) as total_count from LoginLogs where TryTime > $time and IpAddress='$ip_address'";
+$check_login_row=$conn->query($query);
+$row = $check_login_row->fetch_assoc();
+$total_count=$row['total_count'];
+
+//Checking if the attempt 3, or you can set the # of attempt here. For now we take only 3 failed attemptes
+	if($total_count==3){
+		$msg="To many failed login attempts. Please login after 30 sec";
+	}else{
+		//Getting Post Values
+		$username=$_POST['username'];
+		$password=md5($_POST['password']);
+		// Coding for login
+		$res="select * from FinalUsers where username='$username' and password='$password'";
+		$result = $conn->query($res);
+		if($result->num_rows){
+			$userRow = $result->fetch_assoc();
+			$_SESSION['email'] = $userRow["email"];
+			$_SESSION['username'] = $username;
+			$_SESSION['csrf'] = bin2hex(random_bytes(24));
+			mysqli_query($conn,"delete from LoginLogs where IpAddress='$ip_address'");
+			echo "<script>window.location.href='finalHome.php';</script>";
+		}else{
+			$total_count++;
+			$rem_attm=3-$total_count;
+			if($rem_attm==0){
+				$msg="To many failed login attempts. Please login after 30 sec";
+			}else{
+				$msg="Please enter valid login details.<br/>$rem_attm attempts remaining";
+			}
+			$try_time=time();
+			$conn-> query("insert into LoginLogs(IpAddress,TryTime) values('$ip_address','$try_time')");
+		}
+	}
+}
+function getIpAddr(){
+	if (!empty($_SERVER['HTTP_CLIENT_IP'])){
+		$ipAddr = $_SERVER['HTTP_CLIENT_IP'];
+	}elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+		$ipAddr = $_SERVER['HTTP_X_FORWARDED_FOR'];
+	}else{
+		$ipAddr = $_SERVER['REMOTE_ADDR'];
+	}
+}
+?>
+<html>
+	<head>
+		<style>
+			#main {
+				height: 80%;
+				border: 1px solid black;
+				background-color: lightgray;
+			}
+			
+			header, footer, #nav, #main, #asideleft, #asideright, #maincenter {
+				box-sizing: border-box;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			
+			#asideleft, #asideright, #maincenter {
+				height: 100%;
+				font-size: 1.5em;
+			}
+			
+			#nav, footer {
+				height 10%;
+				font-size: 1.5em;
+			}
+			
+			header {
+				height: 10%;
+				border: 5px double black;
+				font-size: 30px;
+				background-color: green;
+			}
+			
+			#asideleft {
+				width: 10%;
+				float: left;
+				border-right: 1px solid black;
+			}
+			
+			#asideright {
+				width: 10%;
+				float: right;
+				border-left: 1px solid black;
+			}
+			
+			#maincenter {
+				width: 80%;
+				float: left;
+				flex-direction: column;
+			}
+			
+			#nav, footer {
+				background-color: lightgray;
+				border: 1px solid black;
+			}
+			
+			#submit {
+				margin-top: 5px;
+			}
+			
+			.btn {
+				text-decoration: none;
+				border: 1px solid;
+				color: black;
+				margin-right: 5px;
+				padding: 4px 5px;
+				margin-top: 2px;
+				margin-bottom: 2px;
+			}
+			
+			#result {
+				color: red;
+			}
+			
+			.btn:hover {background-color: darkgrey}			
+			
+		</style>
+		<title>Login page.</title>
+	</head>
+	
+	<body>
+		<header>Login Page</header>
+		<div id="nav">
+			<a class = "btn" id = "home" href = "finalHome.php">Homepage</a>
+			<a class = "btn" id = "upcoming" href = "finalUpcoming.php">Upcoming Releases</a>
+			<a class = "btn" id = "reviews" href = "finalReviews.php">Reviews</a>
+			<a class = "btn" id = "chart" href = "finalPubSearch.php">Game Data</a>
+			<a class = "btn" id = "about" href = "finalAbout.php">About</a>
+		</div>
+		<div id="main">
+			<div id="asideleft"></div>
+			<div id="maincenter">
+				<div id = "result"><?php echo $msg ?></div>
+				<form id = "form" method = "post">
+					<label for = "username">Username:</label>
+					<input type = "text" id = "username" name = "username"><br>
+					<label for = "password">Password:</label>
+					<input type = "password" id = "password" name = "password"><br>
+					<input type = "submit" id = "submit" name = "submit" value = "Login">
+					<input type = "hidden" id = "csrf" name = "csrf" value = "<?php bin2hex(random_bytes(24));?>"
+				</form>
+				<p>Don't have an account? Click <a href = "finalSignup.html">here!</a></p>
+			</div>
+			<div id="asideright"></div>
+		</div>
+		<footer>Thank you for your visit!</footer>
+	</body>
+</html>
